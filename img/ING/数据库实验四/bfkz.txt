@@ -1,0 +1,47 @@
+CREATE TABLE `t`  (
+  `A` int NOT NULL,
+  `B` int NULL DEFAULT NULL,
+  PRIMARY KEY (`A`) 
+) ;
+
+
+INSERT INTO `t` VALUES (1, 1000);
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `dsxg1`()
+BEGIN
+	DECLARE ccc int;
+	select B into ccc from t WHERE A=1;
+	SELECT SLEEP(10);
+	UPDATE t SET B=ccc+7 WHERE A=1;
+	COMMIT;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `dsxg2`()
+BEGIN
+	DECLARE ccc int;
+	select B into ccc from t WHERE A=1;
+	UPDATE t SET B=ccc+11 WHERE A=1;
+	COMMIT;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sptest`()
+BEGIN
+	DECLARE ccc int;
+  START TRANSACTION;
+	select B into ccc from t WHERE A=1 for UPDATE;
+	SELECT SLEEP(10);
+	UPDATE t SET B=ccc+7 WHERE A=1;
+	COMMIT;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sptest2`()
+BEGIN
+	DECLARE ccc int;
+	START TRANSACTION;
+	select B into ccc from t WHERE A=1 for UPDATE;
+	
+	UPDATE t SET B=ccc+11 WHERE A=1;
+	COMMIT;
+END
+
