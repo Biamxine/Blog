@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>蓝星的博客</title>
+    </head>
+    <body>
+        <header>
+            <nav id="top_nav">
+                <ul id="top_nav_ul">
+                    <li class="li_l"><a href="{{ url_for('index') }}" >彼岸星的博客</a></li>
+                    <li class="li_r"><a href="{{ url_for('about') }}" >关于</a></li>
+                    <li class="li_r"><a href="{{ url_for('friend') }}" >友链</a></li>
+                    <li class="li_r"><a href="{{ url_for('tag') }}" >标签</a></li>
+                    <li class="li_r"><a href="{{ url_for('index') }}" >首页</a></li>
+                    <li class="li_r"><a href="#" >搜索</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            <p style="margin: 0; padding: 0;">
+                &copy; 2025 蓝星
+            </p>
+            <p style="margin: 0; padding: 0;">
+                欢迎来到我的小天地，希望您喜欢这里的分享！
+            </p>
+        </footer>
+    </body>
+</html>
