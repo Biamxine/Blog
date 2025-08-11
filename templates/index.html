@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div style="height: 200vh; background-color: #ffffff; margin: 0; padding: 0;">
-        <h1 style="margin: 0; padding: 0;">这是首页</h1>
+    <img id="index_bg" src="{{ url_for('static', filename='imgs/index_bg.jpg') }}" alt="首页背景图片">
+    <div id="index_bg_box">
+        <div class="index_bg_box_son index_bg_box_son_1"></div>
+        <div class="index_bg_box_son index_bg_box_son_2"><input id="index_search" type="text" placeholder="搜索"></div>
+        <div class="index_bg_box_son index_bg_box_son_3"><button id="index_scroll_to_posts">V</button></div>
+    </div>
+    <div id="index_posts_box">
+        <div style="height: 100vh; background-color: #ffffff;">
+            {% for post in posts %}
+                <div class="index_post_box">
+                    <h1>正在努力建设中……</h1>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

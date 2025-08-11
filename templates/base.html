@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <meta charset="utf-8">
@@ -10,18 +10,21 @@
         <header>
             <nav id="top_nav">
                 <ul id="top_nav_ul">
-                    <li class="li_l"><a href="{{ url_for('index') }}" >彼岸星的博客</a></li>
-                    <li class="li_r"><a href="{{ url_for('about') }}" >关于</a></li>
-                    <li class="li_r"><a href="{{ url_for('friend') }}" >友链</a></li>
-                    <li class="li_r"><a href="{{ url_for('tag') }}" >标签</a></li>
-                    <li class="li_r"><a href="{{ url_for('index') }}" >首页</a></li>
-                    <li class="li_r"><a href="#" >搜索</a></li>
+                    <div id="top_nav_ul_l"><li class="li_l"><a href="{{ url_for('index') }}" >彼岸星的博客</a></li></div>
+                    <div id="top_nav_ul_c"><input id="top_nav_search" type="text" placeholder="搜索"></div>
+                    <div id="top_nav_ul_r">
+                        <div class="{% if current_page == 'tag' %}li_r_box{% endif %}"><li class="li_r"><a href="{{ url_for('tag') }}" >标签</a></li></div>
+                        <div class="{% if current_page == 'note' %}li_r_box{% endif %}"><li class="li_r"><a href="{{ url_for('note') }}" >小记</a></li></div>
+                        <div class="{% if current_page == 'friend' %}li_r_box{% endif %}"><li class="li_r"><a href="{{ url_for('friend') }}" >友链</a></li></div>
+                        <div class="{% if current_page == 'about' %}li_r_box{% endif %}"><li class="li_r"><a href="{{ url_for('about') }}" >关于</a></li></div>
+                    </div>
                 </ul>
             </nav>
         </header>
         <main>
             {% block content %}
             {% endblock %}
+            <button id="back_top">↑</button>
         </main>
         <footer>
             <p style="margin: 0; padding: 0;">
@@ -31,5 +34,6 @@
                 欢迎来到我的小天地，希望您喜欢这里的分享！
             </p>
         </footer>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>

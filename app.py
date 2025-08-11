@@ -68,19 +68,24 @@ def inject_user():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    posts = ["aaaa"]
+    return render_template('index.html', posts=posts)
 
 @app.route('/tag')
 def tag():
-    return render_template('tag.html')
+    return render_template('tag.html', current_page='tag')
 
 @app.route('/friend')
 def friend():
-    return render_template('friend.html')
+    return render_template('friend.html', current_page='friend')
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', current_page='about')
+
+@app.route('/note')
+def note():
+    return render_template('note.html', current_page='note')
 
 @app.errorhandler(404)
 def not_found(e):
