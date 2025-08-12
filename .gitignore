@@ -1,3 +1,4 @@
+
 *.pyc
 *~
 __pycache__
@@ -5,3 +6,4 @@ __pycache__
 .env
 *.sqlite
 test.py
+env/
