@@ -118,15 +118,31 @@ footer {
 }
 
 #index_scroll_to_posts {
-    display: inline-block;
-    transform: scaleX(2);
+    display: flex;
+    justify-content: center;
     color: white;
     font-size: 2vw;
     background-color: transparent;
-    width: 2.5vw;
-    height: 2.5vw;
+    width: 5vw;
+    height: 5vw;
     border: none; 
 }
+
+#index_scroll_to_posts:hover {
+    cursor: pointer;
+}
+
+
+#index_scroll_to_posts_span {
+    display: inline-block;
+    animation: index_scroll_to_posts_span_animation 2s ease-in-out infinite;
+}
+
+@keyframes index_scroll_to_posts_span_animation {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(2vw); }
+}
+
 
 #top_nav_ul_l {
     flex: 1;
@@ -214,6 +230,13 @@ footer {
     width: 100%;
     background-color: transparent;
 }
+
+.index_bg_box_son_3 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
 
 #index_search {
     color: black;
