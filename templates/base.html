@@ -5,13 +5,13 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>蓝星的小天地</title>
+        <title>蓝星孤屿</title>
     </head>
     <body>
         <header>
             <nav id="top_nav">
                 <ul id="top_nav_ul">
-                    <div id="top_nav_ul_l"><li class="li_l"><a href="{{ url_for('index') }}" >蓝星的小天地</a></li></div>
+                    <div id="top_nav_ul_l"><li class="li_l"><a href="{{ url_for('index') }}" >蓝星孤屿</a></li></div>
                     <div id="top_nav_ul_c"><input id="top_nav_search" type="text" placeholder="搜索"></div>
                     <div id="top_nav_ul_r">
                         <div class="{% if current_page == 'tag' %}li_r_box{% endif %}"><li class="li_r"><a href="{{ url_for('tag') }}" >标签</a></li></div>
