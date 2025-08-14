@@ -33,6 +33,10 @@ echo "正在检查 screen 会话..."
 if ! screen -ls | grep -qw "$SCREEN_NAME"; then
     echo "Screen 会话 \"$SCREEN_NAME\" 不存在，正在创建空的后台会话..."
     screen -dmS "$SCREEN_NAME" bash
+    if ! screen -ls | grep -qw "$SCREEN_NAME"; then
+        echo "创建 Screen 会话 \"$SCREEN_NAME\" 失败。"
+        exit 1
+    fi
 fi
 echo "Screen 会话 \"$SCREEN_NAME\" 存在，正在切换到工作目录..."
 #screen会话blog切换到工作目录
