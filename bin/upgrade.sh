@@ -4,10 +4,10 @@
 SCREEN_NAME="blog"
 WORK_DIR="/srv/blog/"
 FLASK_CMD="flask run --host=0.0.0.0 --port=5000"
-ACTIVATE_CMD="source /srv/blog/env/bin/activate"
+ACTIVATE_CMD="source $WORK_DIR/env/bin/activate"
 KEY_DIR="~/.ssh/user-git_password-is-git"
-CORRECT_VIRTUAL_ENV="/srv/blog/env"
-ASH_BIN="/srv/blog/log/ash-bin"
+CORRECT_VIRTUAL_ENV="$WORK_DIR/env"
+ASH_BIN="$WORK_DIR/log/ash-bin"
 
 
 # 第一步：查找并优雅停止当前运行的 flask 进程
@@ -33,6 +33,9 @@ if ! screen -ls | grep -qw "$SCREEN_NAME"; then
     echo "Screen 会话 \"$SCREEN_NAME\" 不存在，正在创建空的后台会话..."
     screen -dmS "$SCREEN_NAME" bash
 fi
+#screen会话blog切换到工作目录
+screen -S "$SCREEN_NAME" -X stuff "cd $WORK_DIR $(printf \\r)"
+
 
 #第四步：确保虚拟环境激活
 screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > /srv/blog/log/activate.status'
