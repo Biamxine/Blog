@@ -59,7 +59,7 @@ echo "正在重新启动 Flask 应用在 screen 会话 \"$SCREEN_NAME\" 中..."
 screen -S "$SCREEN_NAME" -X stuff "$FLASK_CMD$(printf \\r)"
 
 # 检查是否执行成功
-if ps aux |grep "[f]lask run --host=0.0.0.0 --port=5000" > /dev/null; then
+if ps aux |grep "[f]lask run --host=0.0.0.0 --port=5000" > /srv/blog/log/null; then
     echo "Flask 应用已在 screen 会话 \"$SCREEN_NAME\" 中重新启动："
     echo "    host: 0.0.0.0"
     echo "    port: 5000"
