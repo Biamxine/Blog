@@ -56,7 +56,8 @@ else
 fi
 
 # 第五步：在 screen 会话中运行新的 flask 命令
-echo "正在重新启动 Flask 应用在 screen 会话 \"$SCREEN_NAME\" 中..."
+echo "正在 screen 会话 \"$SCREEN_NAME\" 中重新启动 Flask 应用..."
+
 screen -S "$SCREEN_NAME" -X stuff "$FLASK_CMD$(printf \\r)"
 
 # 检查是否执行成功
