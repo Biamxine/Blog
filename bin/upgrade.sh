@@ -7,6 +7,7 @@ FLASK_CMD="flask run --host=0.0.0.0 --port=5000"
 ACTIVATE_CMD="source /srv/blog/env/bin/activate"
 KEY_DIR="~/.ssh/user-git_password-is-git"
 CORRECT_VIRTUAL_ENV="/srv/blog/env"
+ASH_BIN="/srv/blog/log/ash-bin"
 
 
 # 第一步：查找并优雅停止当前运行的 flask 进程（模拟 Ctrl+C，发送 SIGINT）
@@ -16,7 +17,8 @@ pkill -f "flask run --host=0.0.0.0 --port=5000" || echo "未找到正在运行�
 # 第二步：拉取最新代码
 echo "正在拉取最新代码..."
 cd "$WORK_DIR" || { echo "无法进入目录 $WORK_DIR"; exit 1; }
-git pull > /dev/nvll
+git pull > "$ASH_BIN"
+
 
 
 # 检查 git pull 是否成功
@@ -59,7 +61,7 @@ echo "正在重新启动 Flask 应用在 screen 会话 \"$SCREEN_NAME\" 中..."
 screen -S "$SCREEN_NAME" -X stuff "$FLASK_CMD$(printf \\r)"
 
 # 检查是否执行成功
-if ps aux |grep "[f]lask run --host=0.0.0.0 --port=5000" > /srv/blog/log/null; then
+if ps aux |grep "[f]lask run --host=0.0.0.0 --port=5000" > "$ASH_BIN"; then
     echo "Flask 应用已在 screen 会话 \"$SCREEN_NAME\" 中重新启动："
     echo "    host: 0.0.0.0"
     echo "    port: 5000"
