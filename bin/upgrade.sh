@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 定义 screen 会话名称 和 工作目录
-SCREEN_NAME="blog"
+SCREEN_NAME="Blog"
 WORK_DIR="/srv/blog/"
 FLASK_CMD="flask run --host=0.0.0.0 --port=5000"
 ACTIVATE_CMD="source $WORK_DIR/env/bin/activate"
