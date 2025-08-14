@@ -68,9 +68,9 @@ else
     screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > \$VENV_STATUS_FILE'
     screen -S "$SCREEN_NAME" -X stuff "$(printf \\r)"
     if [ "$(cat "$VENV_STATUS_FILE")" = "$CORRECT_VIRTUAL_ENV" ]; then
-        echo "虚拟环境已激活"
+        echo "虚拟环境激活成功！"
     else
-        echo "虚拟环境激活失败"
+        echo "虚拟环境激活失败！"
         exit 1
     fi
 fi
