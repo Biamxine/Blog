@@ -16,7 +16,7 @@ pkill -f "flask run --host=0.0.0.0 --port=5000" || echo "未找到正在运行�
 # 第二步：拉取最新代码
 echo "正在拉取最新代码..."
 cd "$WORK_DIR" || { echo "无法进入目录 $WORK_DIR"; exit 1; }
-git pull
+git pull > /dev/nvll
 
 
 # 检查 git pull 是否成功
@@ -34,8 +34,8 @@ if ! screen -list | grep -q "\b$SCREEN_NAME\b"; then
 fi
 
 #第四步：确保虚拟环境激活
-screen -S "$SCREEN_NAME" -X stuff "echo \"\$VIRTUAL_ENV\" > /srv/blog/log/activate.status $(printf \\r)"
-sleep 1
+screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > /srv/blog/log/activate.status'
+screen -S "$SCREEN_NAME" -X stuff "$(printf \\r)"
 if [ "$(</srv/blog/log/activate.status)" = "$CORRECT_VIRTUAL_ENV" ]; then
     echo "虚拟环境已激活"
 else
@@ -44,7 +44,8 @@ else
     # 等待环境激活
     sleep 1
     # 检查环境是否激活
-    screen -S "$SCREEN_NAME" -X stuff "echo \"\$VIRTUAL_ENV\" > /srv/blog/log/activate.status $(printf \\r)"
+    screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > /srv/blog/log/activate.status'
+    screen -S "$SCREEN_NAME" -X stuff "$(printf \\r)"
     if [ "$(</srv/blog/log/activate.status)" = "$CORRECT_VIRTUAL_ENV" ]; then
         echo "虚拟环境已激活"
     else
