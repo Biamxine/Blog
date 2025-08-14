@@ -17,7 +17,8 @@ pkill -f "flask run --host=0.0.0.0 --port=5000" || echo "未找到正在运行�
 # 第二步：拉取最新代码
 echo "正在拉取最新代码..."
 cd "$WORK_DIR" || { echo "无法进入目录 $WORK_DIR"; exit 1; }
-git pull > "$ASH_BIN"
+git pull > "$ASH_BIN" 2>&1
+
 
 # 检查 git pull 是否成功
 if [ $? -ne 0 ]; then
