@@ -52,12 +52,12 @@ VENV_STATUS_FILE="/srv/blog/log/virtual_env.status"
 if [ -e "$VENV_STATUS_FILE" ]; then
     rm "$VENV_STATUS_FILE"
 fi
-screen -S "$SCREEN_NAME" -X stuff "export VENV_STATUS_FILE=$CORRECT_VIRTUAL_ENV $(printf \\r)"
+#screen -S "$SCREEN_NAME" -X stuff "export VENV_STATUS_FILE=$VENV_STATUS_FILE $(printf \\r)"
 
 echo "正在检查虚拟环境激活状态..."
-screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > "$ACTIVATE_STATUS_FILE"'
+screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > "$VENV_STATUS_FILE"'
 screen -S "$SCREEN_NAME" -X stuff "$(printf \\r)"
-if [ "$(cat "$ACTIVATE_STATUS_FILE")" = "$CORRECT_VIRTUAL_ENV" ]; then
+if [ "$(cat "$VENV_STATUS_FILE")" = "$CORRECT_VIRTUAL_ENV" ]; then
     echo "虚拟环境已激活"
 else
     echo "虚拟环境未激活，正在激活..."
@@ -65,9 +65,9 @@ else
     # 等待环境激活
     sleep 1
     # 检查环境是否激活
-    screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > "$ACTIVATE_STATUS_FILE"'
+    screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > "$VENV_STATUS_FILE"'
     screen -S "$SCREEN_NAME" -X stuff "$(printf \\r)"
-    if [ "$(cat "$ACTIVATE_STATUS_FILE")" = "$CORRECT_VIRTUAL_ENV" ]; then
+    if [ "$(cat "$VENV_STATUS_FILE")" = "$CORRECT_VIRTUAL_ENV" ]; then
         echo "虚拟环境已激活"
     else
         echo "虚拟环境激活失败"
