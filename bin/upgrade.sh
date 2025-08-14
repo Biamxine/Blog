@@ -10,7 +10,7 @@ CORRECT_VIRTUAL_ENV="/srv/blog/env"
 ASH_BIN="/srv/blog/log/ash-bin"
 
 
-# 第一步：查找并优雅停止当前运行的 flask 进程（模拟 Ctrl+C，发送 SIGINT）
+# 第一步：查找并优雅停止当前运行的 flask 进程
 echo "正在查找并停止当前运行的 Flask 进程..."
 pkill -f "flask run --host=0.0.0.0 --port=5000" || echo "未找到正在运行的 Flask 进程，可能尚未启动或命令不匹配。"
 
@@ -18,8 +18,6 @@ pkill -f "flask run --host=0.0.0.0 --port=5000" || echo "未找到正在运行�
 echo "正在拉取最新代码..."
 cd "$WORK_DIR" || { echo "无法进入目录 $WORK_DIR"; exit 1; }
 git pull > "$ASH_BIN"
-
-
 
 # 检查 git pull 是否成功
 if [ $? -ne 0 ]; then
@@ -62,13 +60,9 @@ screen -S "$SCREEN_NAME" -X stuff "$FLASK_CMD$(printf \\r)"
 
 # 检查是否执行成功
 if ps aux |grep "[f]lask run --host=0.0.0.0 --port=5000" > "$ASH_BIN"; then
-    echo "Flask 应用已在 screen 会话 \"$SCREEN_NAME\" 中重新启动："
-    echo "    host: 0.0.0.0"
-    echo "    port: 5000"
-    echo "你可以使用以下命令查看 screen 会话状态："
-    echo "    screen -ls"
-    echo "或者连接进会话查看输出："
-    echo "    screen -r $SCREEN_NAME"
+    echo "Flask 应用已在 screen 会话 \"$SCREEN_NAME\" 中成功启动！"
+    echo "Flask 应用已在 screen 会话 \"$SCREEN_NAME\" 中成功启动！"
+    echo "Flask 应用已在 screen 会话 \"$SCREEN_NAME\" 中成功启动！"
 else
     echo "启动 Flask 应用到 screen 会话失败。"
     exit 1
