@@ -57,6 +57,7 @@ screen -S "$SCREEN_NAME" -X stuff "export VENV_STATUS_FILE=$VENV_STATUS_FILE $(p
 echo "正在检查虚拟环境激活状态..."
 screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > \$VENV_STATUS_FILE'
 screen -S "$SCREEN_NAME" -X stuff "$(printf \\r)"
+sleep 1
 if [ "$(cat "$VENV_STATUS_FILE")" = "$CORRECT_VIRTUAL_ENV" ]; then
     echo "虚拟环境已激活"
 else
@@ -67,6 +68,7 @@ else
     # 检查环境是否激活
     screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > \$VENV_STATUS_FILE'
     screen -S "$SCREEN_NAME" -X stuff "$(printf \\r)"
+    sleep 1
     if [ "$(cat "$VENV_STATUS_FILE")" = "$CORRECT_VIRTUAL_ENV" ]; then
         echo "虚拟环境激活成功！"
     else
