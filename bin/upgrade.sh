@@ -33,16 +33,19 @@ echo "正在检查 screen 会话..."
 if ! screen -ls | grep -qw "$SCREEN_NAME"; then
     echo "Screen 会话 \"$SCREEN_NAME\" 不存在，正在创建空的后台会话..."
     screen -dmS "$SCREEN_NAME" bash
+    echo "已经执行创建 screen 后台会话命令，再次检查 screen 会话 \"$SCREEN_NAME\" 是否存在..."
     if ! screen -ls | grep -qw "$SCREEN_NAME"; then
         echo "创建 Screen 会话 \"$SCREEN_NAME\" 失败。"
         exit 1
+    else
+        echo "Screen 会话 \"$SCREEN_NAME\" 创建成功。"
     fi
+else
+    echo "Screen 会话 \"$SCREEN_NAME\" 存在"
 fi
-echo "Screen 会话 \"$SCREEN_NAME\" 存在，正在切换到工作目录..."
 #screen会话blog切换到工作目录
+echo "正在切换到工作目录..."
 screen -S "$SCREEN_NAME" -X stuff "cd $WORK_DIR $(printf \\r)"
-echo "Screen 会话 \"$SCREEN_NAME\" 切换到工作目录成功。"
-
 
 #第四步：确保虚拟环境激活
 echo "正在检查虚拟环境激活状态..."
