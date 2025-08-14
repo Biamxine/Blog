@@ -4,7 +4,9 @@
 SCREEN_NAME="blog"
 WORK_DIR="/srv/blog/"
 FLASK_CMD="flask run --host=0.0.0.0 --port=5000"
+ACTIVATE_CMD="source /srv/blog/env/bin/activate"
 KEY_DIR="~/.ssh/user-git_password-is-git"
+CORRECT_VIRTUAL_ENV="/srv/blog/env"
 
 
 # 第一步：查找并优雅停止当前运行的 flask 进程（模拟 Ctrl+C，发送 SIGINT）
@@ -31,12 +33,31 @@ if ! screen -list | grep -q "\b$SCREEN_NAME\b"; then
     screen -dmS "$SCREEN_NAME" bash
 fi
 
-# 第四步：在 screen 会话中运行新的 flask 命令
+#第四步：确保虚拟环境激活
+screen -S "$SCREEN_NAME" -X stuff "echo \"\$VIRTUAL_ENV\" > /srv/blog/log/activate.status $(printf \\r)"
+if [ "$(</srv/blog/log/activate.status)" = "$CORRECT_VIRTUAL_ENV" ]; then
+    echo "虚拟环境已激活"
+else
+    echo "虚拟环境未激活，正在激活..."
+    screen -S "$SCREEN_NAME" -X stuff "$ACTIVATE_CMD$(printf \\r)"
+    # 等待环境激活
+    sleep 1
+    # 检查环境是否激活
+    screen -S "$SCREEN_NAME" -X stuff "echo \"\$VIRTUAL_ENV\" > /srv/blog/log/activate.status $(printf \\r)"
+    if [ "$(</srv/blog/log/activate.status)" = "$CORRECT_VIRTUAL_ENV" ]; then
+        echo "虚拟环境已激活"
+    else
+        echo "虚拟环境激活失败"
+        exit 1
+    fi
+fi
+
+# 第五步：在 screen 会话中运行新的 flask 命令
 echo "正在重新启动 Flask 应用在 screen 会话 \"$SCREEN_NAME\" 中..."
 screen -S "$SCREEN_NAME" -X stuff "$FLASK_CMD$(printf \\r)"
 
 # 检查是否执行成功
-if [ $? -eq 0 ]; then
+if ps aux |grep "[f]lask run --host=0.0.0.0 --port=5000" > /dev/null; then
     echo "Flask 应用已在 screen 会话 \"$SCREEN_NAME\" 中重新启动："
     echo "    host: 0.0.0.0"
     echo "    port: 5000"
