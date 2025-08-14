@@ -29,7 +29,7 @@ echo "代码拉取成功。"
 
 # 第三步：确保 screen 会话存在，如果不存在则创建一个空的后台会话
 # 如果 screen 会话不存在，则创建一个空的持久化会话
-if ! screen -list | grep -q "\b$SCREEN_NAME\b"; then
+if ! screen -ls | grep -qw "$SCREEN_NAME"; then
     echo "Screen 会话 \"$SCREEN_NAME\" 不存在，正在创建空的后台会话..."
     screen -dmS "$SCREEN_NAME" bash
 fi
