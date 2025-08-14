@@ -35,6 +35,7 @@ fi
 
 #第四步：确保虚拟环境激活
 screen -S "$SCREEN_NAME" -X stuff "echo \"\$VIRTUAL_ENV\" > /srv/blog/log/activate.status $(printf \\r)"
+sleep 1
 if [ "$(</srv/blog/log/activate.status)" = "$CORRECT_VIRTUAL_ENV" ]; then
     echo "虚拟环境已激活"
 else
