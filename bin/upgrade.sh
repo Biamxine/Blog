@@ -4,6 +4,8 @@
 SCREEN_NAME="blog"
 WORK_DIR="/srv/blog/"
 FLASK_CMD="flask run --host=0.0.0.0 --port=5000"
+KEY_DIR="~/.ssh/user-git_password-is-git"
+
 
 # 第一步：查找并优雅停止当前运行的 flask 进程（模拟 Ctrl+C，发送 SIGINT）
 echo "正在查找并停止当前运行的 Flask 进程..."
@@ -12,7 +14,8 @@ pkill -f "flask run --host=0.0.0.0 --port=5000" || echo "未找到正在运行�
 # 第二步：拉取最新代码
 echo "正在拉取最新代码..."
 cd "$WORK_DIR" || { echo "无法进入目录 $WORK_DIR"; exit 1; }
-git pull
+git pull --key-dir "$KEY_DIR"
+
 
 # 检查 git pull 是否成功
 if [ $? -ne 0 ]; then
