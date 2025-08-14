@@ -28,16 +28,20 @@ fi
 echo "代码拉取成功。"
 
 # 第三步：确保 screen 会话存在，如果不存在则创建一个空的后台会话
+echo "正在检查 screen 会话..."
 # 如果 screen 会话不存在，则创建一个空的持久化会话
 if ! screen -ls | grep -qw "$SCREEN_NAME"; then
     echo "Screen 会话 \"$SCREEN_NAME\" 不存在，正在创建空的后台会话..."
     screen -dmS "$SCREEN_NAME" bash
 fi
+echo "Screen 会话 \"$SCREEN_NAME\" 存在，正在切换到工作目录..."
 #screen会话blog切换到工作目录
 screen -S "$SCREEN_NAME" -X stuff "cd $WORK_DIR $(printf \\r)"
+echo "Screen 会话 \"$SCREEN_NAME\" 切换到工作目录成功。"
 
 
 #第四步：确保虚拟环境激活
+echo "正在检查虚拟环境激活状态..."
 screen -S "$SCREEN_NAME" -X stuff 'echo \$VIRTUAL_ENV > /srv/blog/log/activate.status'
 screen -S "$SCREEN_NAME" -X stuff "$(printf \\r)"
 if [ "$(</srv/blog/log/activate.status)" = "$CORRECT_VIRTUAL_ENV" ]; then
